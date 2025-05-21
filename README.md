@@ -7,6 +7,7 @@ This repository offers a comprehensive, step-by-step guide to building an automa
 -   [Prerequisites](#prerequisites)
 -   [Initialization of Playwright Project](#initialization-of-playwright-project)
 -   [Define User Snippets](#define-user-snippets)
+-   [Setup Environment Variables](#setup-environment-variables)
 
 ## Introduction
 
@@ -190,3 +191,98 @@ After the installation is completed, you can safely delete the following folder 
 ### **Fine-tuning (Optional)**
 
 - You can always come back and adjust your snippets. To do so, simply follow Step 1 to open the Command Palette, and this time, choose your existing snippet file to edit.
+
+## Setup Environment Variables
+
+### Importance
+Setting up environment variables is essential for a well-functioning automation framework due to the following reasons:
+
+#### Security
+Environment variables safeguard sensitive information like passwords and API keys by excluding them from the source code, thereby enhancing security.
+
+#### Portability
+They ensure the framework's adaptability across diverse environments—development, testing, staging, production—without necessitating code alterations.
+
+#### Consistency and Configuration Management
+Allows for a unified approach to managing application and testing configurations, enabling adjustments without direct code modifications.
+
+#### Scalability
+Facilitates the framework's ability to accommodate growth and complexity by enabling scalable configurations that can be easily modified to suit varying project requirements.
+
+### Selected tool
+`npm dotenv` is a module in Node.js that loads environment variables from a `.env` file into `process.env`, making it easier to manage application configuration and secrets. It's particularly useful in development and production environments for separating configuration from code
+
+### Key Features:
+- Simplicity: Easily manageable environment variables stored in a file.
+- Security: Keeps sensitive information, like database passwords and API keys, out of the source code.
+- Portability: Simplifies configuration changes for different environments without altering the codebase.
+
+### Setup
+
+1. **Installation**: Add dotenv to your Node.js project using npm:
+
+```bash
+npm install dotenv
+```
+
+2. **Create Environment files structure**: In your project's root directory, create a `.env` folder and separate file `.env.environmentName` to store your environment variables (key-value pairs):
+
+```bash
+URL=https://conduit.bondaracademy.com/
+API_URL=https://conduit-api.bondaracademy.com/
+USER_NAME=yourName
+EMAIL=yourEmail
+PASSWORD=yourPassword
+```
+
+You can create `.env.example` file to show the structure of the environment file.
+Keep in mind that in most cases you should have different values for every environment.
+
+3. **Exclude environment files from version control**: Add the following line to your `.gitignore` file for `.env.dev` file (if you have more environment files, add them as well):
+
+```bash
+.env.dev
+```
+
+4. **Configure Environment Utilization**: In `playwright.config.ts` you have to add the following code at the top of the file:
+
+```typescript
+import dotenv from 'dotenv';
+```
+
+After that you have to add the following code to the `playwright.config.ts` file:
+
+```typescript
+const environmentPath =
+    process.env.ENVIRONMENT == undefined
+        ? `./env/.env.dev`
+        : `./env/.env.${process.env.ENVIRONMENT}`;
+
+dotenv.config({
+    path: environmentPath,
+});
+```
+
+Different variables can be accessed in your tests using `process.env.ENVIRONMENT`.
+
+
+The chosen default environment name is DEV (.env.dev). The script is built to use the file if `process.env.ENVIRONMENT` is `undefined` (not set).
+
+
+To set desired environment, run the following command into terminal, before starting the tests:
+
+```
+$env:ENVIRONMENT='environmentName'
+```
+
+You can verify the set variable with:
+
+```sh
+echo $env:ENVIRONMENT
+```
+
+5. **Use environment variable**: You can use the environment variable in the test files:
+
+```typescript
+const url = process.env.URL;
+```
