@@ -226,7 +226,7 @@ Facilitates the framework's ability to accommodate growth and complexity by enab
 npm install dotenv
 ```
 
-2. **Create Environment files structure**: In your project's root directory, create a `.env` folder and separate file `.env.environmentName` to store your environment variables (key-value pairs):
+2. **Create Environment files structure**: In your project's root directory, create a `env` folder and separate file `env.environmentName` to store your environment variables (key-value pairs):
 
 ```bash
 URL=https://conduit.bondaracademy.com/
