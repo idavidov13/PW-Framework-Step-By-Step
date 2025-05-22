@@ -8,6 +8,7 @@ This repository offers a comprehensive, step-by-step guide to building an automa
 -   [Initialization of Playwright Project](#initialization-of-playwright-project)
 -   [Define User Snippets](#define-user-snippets)
 -   [Setup Environment Variables](#setup-environment-variables)
+-   [Setup POM (Page Object Model)](#setup-pom-page-object-model)
 
 ## Introduction
 
@@ -286,3 +287,47 @@ echo $env:ENVIRONMENT
 ```typescript
 const url = process.env.URL;
 ```
+
+## Setup POM (Page Object Model)
+
+### Importance of Design Pattern
+
+The importance of employing design patterns in test automation cannot be overstated. It serves as a blueprint for organizing interaction with the user interface (UI) elements of web pages in a structured and reusable manner. This approach not only enhances test maintenance and readability but also significantly reduces code duplication. By abstracting the UI structure away from the test scripts, Design Pattern enables testers to write cleaner, more efficient code. Changes to the UI can be managed in a centralized manner, minimizing the impact on tests and improving the robustness of the automation suite. Ultimately, adopting Design Pattern leads to more scalable, maintainable, and reliable test automation strategies, aligning with best practices for software development and quality assurance.
+
+### POM (Page Object Model) vs Functional Helpers
+
+Both Page Object Model (POM) and Functional Helpers are popular design patterns used to enhance test automation frameworks. Here's a brief comparison of the two:
+
+1. **Page Object Model (POM)**
+- **Structure**: POM organizes web UI elements and interactions into objects corresponding to the pages or components of the tested application. Each page object encapsulates the page structure and behavior.
+- **Maintenance**: Facilitates easier maintenance by centralizing changes to the UI, making it ideal for applications with frequently changing UI elements.
+- **Readability**: Improves the readability of test scripts by abstracting UI specifics into methods of the page objects, thus making tests appear more like user stories.
+- **Reusability**: High, as page objects can be reused across different tests for the same application page or component.
+- **Learning Curve**: Might be steeper due to the need to design and maintain a separate layer of page objects.
+
+2. **Functional Helpers**
+- **Structure**: Functional Helpers approach uses functions for common tasks and interactions with the application, often without a strict binding to the application's page structure.
+- **Maintenance**: Can be more straightforward for small projects or early-stage testing. However, maintaining a large suite of tests might become challenging as the application UI evolves.
+- **Readability**: Improves the readability of test scripts by abstracting UI specifics into functions, thus making tests appear more like user stories.
+- **Reusability**: Moderate, as helper functions can be reused, but they might require adjustments if used across contexts with different application states or requirements.
+- **Learning Curve**: Generally lower than POM, as it requires less initial architectural setup and can be more intuitive for simple projects.
+
+Ultimately, the choice between POM and Functional Helpers depends on the scale of the project, the complexity of the application under test, and the team's familiarity with these design patterns.
+
+### POM Setup
+
+1. **Create Project Structure**
+
+Create pages/clientSite folders in the root directory of the project. Thus will give you a change to further extend the structure if there is Admin Panel or other parts of the application, different that Client Site.
+
+2. **Create Page Object Files**
+
+Create and implement page objects for the client site for all pages of the application. We will create page objects for the following pages: 
+
+- Home Page
+- Nav Page (Navigation Bar presents on every page, but we will create it as a separate page object, so we define it only once)
+- Article Page
+
+3. **Create Page Object Classes**
+
+Create and implement page objects for the client site for all pages of the application.
