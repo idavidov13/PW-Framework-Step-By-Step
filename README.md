@@ -9,6 +9,8 @@ This repository offers a comprehensive, step-by-step guide to building an automa
 -   [Define User Snippets](#define-user-snippets)
 -   [Setup Environment Variables](#setup-environment-variables)
 -   [Setup POM (Page Object Model)](#setup-pom-page-object-model)
+-   [Implement POM (Page Object Model) as Fixture](#implement-pom-page-object-model-as-fixture)
+-   [Implement Auth User Session](#implement-auth-user-session)
 
 ## Introduction
 
@@ -331,3 +333,37 @@ Create and implement page objects for the client site for all pages of the appli
 3. **Create Page Object Classes**
 
 Create and implement page objects for the client site for all pages of the application.
+
+## Implement POM (Page Object Model) as Fixture
+
+1. **Create Fixtures Folder**
+
+Create fixtures/pom folders in the root directory of the project.
+
+2. **Create Fixtures Files**
+
+- page-object-fixture.ts - files is used for extending the test fixture from `@playwright/test`
+- test-options.ts - files is used for merging all extended test fixtures
+
+
+## Implement Auth User Session
+
+1. **Create Auth Script File**
+
+Create auth.setup.ts file in the test directory of the project.
+
+2. **Update Configuration file**
+
+Update playwright.config.ts to configure auth setup.
+
+3. **Add file to .gitignore**
+
+Add `userSession.json` file to .gitignore file in the root directory of the project.
+
+4. **Create Auth User Session**
+
+Run the auth.setup.ts file to create auth user session.
+
+5. **Greate Guest User Session**
+
+Create `guestSession.json` file in the `.auth` directory of the project and add `{}` to it.
