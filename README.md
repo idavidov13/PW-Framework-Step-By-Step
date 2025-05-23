@@ -476,3 +476,9 @@ Create `invalidCredentials.json` in `test-data` folder in the root directory of 
     - USER_NAME
     - EMAIL
     - PASSWORD
+
+6. **Enable GitHub Pages**
+
+- Navigate to repository setting in GitHub,
+- Go to Pages,
+- Select Build and eployment source `GitHub Actions`
