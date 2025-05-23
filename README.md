@@ -13,6 +13,7 @@ This repository offers a comprehensive, step-by-step guide to building an automa
 -   [Implement Auth User Session](#implement-auth-user-session)
 -   [Implement UI Tests](#implement-ui-tests)
 -   [Implement API Fixtures](#implement-api-fixtures)
+-   [Implement API Tests](#implement-api-tests)
 
 ## Introduction
 
@@ -426,3 +427,17 @@ Create fixtures/api folder in the root directory of the project and create separ
 6. **Create 'api-request-fixtures.ts' file in the fixtures/api folder of the project**
 
 7. **Update `test-options.ts` file in the fixtures/pom folder of the project**
+
+## Implement API Tests
+
+1. **Extend `auth.setup.ts` file in the tests folder of the project to add API authentication and to set up `ACCESS_TOKEN` environment variable**
+
+2. **Create test data for invalid credentials**
+
+Create `invalidCredentials.json` in `test-data` folder in the root directory of the project and add the test data for invalid credentials.
+
+3. **Create 'authentication.spec.ts' file in the tests/api folder of the project**
+
+4. **Create 'article.spec.ts' file in the tests/api folder of the project**
+
+5. **Implement Tear Down process in `article.spec.ts` file in the tests/clientSite folder of the project**

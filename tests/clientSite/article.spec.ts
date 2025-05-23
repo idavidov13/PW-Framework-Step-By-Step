@@ -6,6 +6,7 @@ test.describe('Verify Publish/Edit/Delete an Article', () => {
     const randomArticleDescription = faker.lorem.sentence();
     const randomArticleBody = faker.lorem.paragraphs(2);
     const randomArticleTag = faker.lorem.word();
+    let articleId: string;
 
     test.beforeEach(async ({ homePage }) => {
         await homePage.navigateToHomePageUser();
@@ -14,18 +15,30 @@ test.describe('Verify Publish/Edit/Delete an Article', () => {
     test(
         'Verify Publish/Edit/Delete an Article',
         { tag: '@Sanity' },
-        async ({ navPage, articlePage }) => {
+        async ({ navPage, articlePage, page }) => {
             await test.step('Verify Publish an Article', async () => {
                 await navPage.newArticleButton.click();
 
-                await articlePage.publishArticle(
+                const response = await Promise.all([
+                    articlePage.publishArticle(
                         randomArticleTitle,
                         randomArticleDescription,
                         randomArticleBody,
                         randomArticleTag
-                    )
-            });
+                    ),
+                    page.waitForResponse(
+                        (res) =>
+                            res.url() ===
+                                `${process.env.API_URL}api/articles/` &&
+                            res.request().method() === 'POST'
+                    ),
+                ]);
 
+                const responseBody = await response[1].json();
+                articleId = responseBody.article.slug;
+                console.log('articleId', articleId);
+            });
+      
             await test.step('Verify Edit an Article', async () => {
                 await articlePage.navigateToEditArticlePage();
 
@@ -45,4 +58,13 @@ test.describe('Verify Publish/Edit/Delete an Article', () => {
             });
         }
     );
+
+    test.afterAll(async ({ apiRequest }) => {
+        const { status, body } = await apiRequest({
+            method: 'DELETE',
+            url: `api/articles/${articleId}`,
+            baseUrl: process.env.API_URL,
+            headers: process.env.ACCESS_TOKEN,
+        });
+    });
 });
