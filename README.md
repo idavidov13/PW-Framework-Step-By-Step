@@ -11,6 +11,7 @@ This repository offers a comprehensive, step-by-step guide to building an automa
 -   [Setup POM (Page Object Model)](#setup-pom-page-object-model)
 -   [Implement POM (Page Object Model) as Fixture](#implement-pom-page-object-model-as-fixture)
 -   [Implement Auth User Session](#implement-auth-user-session)
+-   [Implement UI Tests](#implement-ui-tests)
 
 ## Introduction
 
@@ -364,6 +365,41 @@ Add `userSession.json` file to .gitignore file in the root directory of the proj
 
 Run the auth.setup.ts file to create auth user session.
 
-5. **Greate Guest User Session**
+5. **Create Guest User Session**
 
 Create `guestSession.json` file in the `.auth` directory of the project and add `{}` to it.
+
+## Implement UI Tests
+
+1. **Add npm scripts for running tests**
+
+Add the following scripts to the `package.json` file:
+
+```json
+{
+    "scripts": {
+        "test": "npx playwright test --project=chromium",
+        "ci": "npx playwright test --project=chromium --workers=1",
+        "flaky": "npx playwright test --project=chromium --repeat-each=20",
+        "debug": "npx playwright test --project=chromium --debug",
+        "ui": "npx playwright test --project=chromium --ui",
+        "smoke": "npx playwright test --grep @Smoke --project=chromium",
+        "sanity": "npx playwright test --grep @Sanity --project=chromium",
+        "api": "npx playwright test --grep @Api --project=chromium",
+        "regression": "npx playwright test --grep @Regression --project=chromium",
+        "fullTest": "npx playwright test"
+    }
+}
+```
+
+2. **Create Test Data**
+
+- Install faker package
+```bash
+npm install @faker-js/faker
+```
+- Create test-data folder in the root directory of the project and create articleData.json file in the test-data folder of the project.
+
+3. **Create UI test files**
+
+Create tests/clientSite folder in the root directory of the project and create separate test files for each page of the application.
