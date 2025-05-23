@@ -4,16 +4,16 @@
   "description": "This repository offers a comprehensive, step-by-step guide to building an automation testing framework using Playwright. Designed with junior Automation QA engineers in mind, it demystifies the process by breaking down the development of a framework from the ground up. Each commit is thoughtfully crafted to explain not just 'how' but 'why' each part of the framework is implemented, providing a solid foundation for understanding and extending it. Whether you're starting your journey in automation testing or looking to strengthen your understanding of testing frameworks, this repository serves as a practical, educational tool, guiding you through the nuances of creating a robust, scalable testing framework with Playwright.",
   "main": "index.js",
   "scripts": {
-      "test": "npx playwright test --project=chromium",
-      "ci": "npx playwright test --project=chromium --workers=1",
-      "flaky": "npx playwright test --project=chromium --repeat-each=20",
-      "debug": "npx playwright test --project=chromium --debug",
-      "ui": "npx playwright test --project=chromium --ui",
-      "smoke": "npx playwright test --grep @Smoke --project=chromium",
-      "sanity": "npx playwright test --grep @Sanity --project=chromium",
-      "api": "npx playwright test --grep @Api --project=chromium",
-      "regression": "npx playwright test --grep @Regression --project=chromium",
-      "fullTest": "npx playwright test"
+    "test": "npx playwright test --project=chromium",
+    "ci": "npx playwright test --project=chromium --workers=1",
+    "flaky": "npx playwright test --project=chromium --repeat-each=20",
+    "debug": "npx playwright test --project=chromium --debug",
+    "ui": "npx playwright test --project=chromium --ui",
+    "smoke": "npx playwright test --grep @Smoke --project=chromium",
+    "sanity": "npx playwright test --grep @Sanity --project=chromium",
+    "api": "npx playwright test --grep @Api --project=chromium",
+    "regression": "npx playwright test --grep @Regression --project=chromium",
+    "fullTest": "npx playwright test"
   },
   "keywords": [],
   "author": "Ivan Davidov",
@@ -24,6 +24,7 @@
     "@types/node": "^22.15.21"
   },
   "dependencies": {
-    "dotenv": "^16.5.0"
+    "dotenv": "^16.5.0",
+    "zod": "^3.25.23"
   }
 }

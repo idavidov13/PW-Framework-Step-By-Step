@@ -12,6 +12,7 @@ This repository offers a comprehensive, step-by-step guide to building an automa
 -   [Implement POM (Page Object Model) as Fixture](#implement-pom-page-object-model-as-fixture)
 -   [Implement Auth User Session](#implement-auth-user-session)
 -   [Implement UI Tests](#implement-ui-tests)
+-   [Implement API Fixtures](#implement-api-fixtures)
 
 ## Introduction
 
@@ -403,3 +404,25 @@ npm install @faker-js/faker
 3. **Create UI test files**
 
 Create tests/clientSite folder in the root directory of the project and create separate test files for each page of the application.
+
+## Implement API Fixtures
+
+1. **Install zod package**
+
+```bash
+npm install zod
+```
+
+2. **Create 'api' folder in the fixtures directory of the project**
+
+Create fixtures/api folder in the root directory of the project and create separate fixture files for each API calls, schemas and types-guards.
+
+3. **Create 'plain-function.ts' file in the fixtures/api folder of the project**
+
+4. **Create 'schemas.ts' file in the fixtures/api folder of the project**
+
+5. **Create 'types-guards.ts' file in the fixtures/api folder of the project**
+
+6. **Create 'api-request-fixtures.ts' file in the fixtures/api folder of the project**
+
+7. **Update `test-options.ts` file in the fixtures/pom folder of the project**
