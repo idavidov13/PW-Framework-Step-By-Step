@@ -1,0 +1,188 @@
+name: Playwright Tests on Custom Runner Extended
+
+on:
+    push:
+        branches: [main, master]
+    pull_request:
+        branches: [main, master]
+    workflow_dispatch:
+
+env:
+    URL: ${{ secrets.URL }}
+    API_URL: ${{ secrets.API_URL }}
+    USER_NAME: ${{ secrets.USER_NAME }}
+    EMAIL: ${{ secrets.EMAIL }}
+    PASSWORD: ${{ secrets.PASSWORD }}
+
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+concurrency:
+    group: 'pages'
+    cancel-in-progress: false
+
+jobs:
+    setup-and-smoke-test:
+        name: Setup and Smoke Test
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        outputs:
+            smoke_outcome: ${{ steps.smoke.outcome }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Playwright Setup on Runner
+              uses: ./.github/actions/playwright-setup
+
+            - name: Run Smoke tests
+              id: smoke
+              run: npm run smoke
+
+            - name: Upload Playwright Report
+              if: always()
+              uses: ./.github/actions/playwright-report
+              with:
+                  test-step-outcome: ${{ steps.smoke.outcome }}
+
+    sanity-test:
+        name: Sanity Test
+        needs: setup-and-smoke-test
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        outputs:
+            sanity_outcome: ${{ steps.sanity.outcome }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Playwright Setup on Runner
+              uses: ./.github/actions/playwright-setup
+
+            - name: Run Sanity tests
+              id: sanity
+              run: npm run sanity
+
+            - name: Upload Playwright Report
+              if: always()
+              uses: ./.github/actions/playwright-report
+              with:
+                  test-step-outcome: ${{ steps.sanity.outcome }}
+
+    api-test:
+        name: API Test
+        needs: setup-and-smoke-test
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        outputs:
+            api_outcome: ${{ steps.api.outcome }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Playwright Setup on Runner
+              uses: ./.github/actions/playwright-setup
+
+            - name: Run API tests
+              id: api
+              run: npm run api
+
+            - name: Upload Playwright Report
+              if: always()
+              uses: ./.github/actions/playwright-report
+              with:
+                  test-step-outcome: ${{ steps.api.outcome }}
+
+    regression-test:
+        name: Regression Test
+        needs: setup-and-smoke-test
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        outputs:
+            regression_outcome: ${{ steps.regression.outcome }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Playwright Setup on Runner
+              uses: ./.github/actions/playwright-setup
+
+            - name: Run Regression tests
+              id: regression
+              run: npm run regression
+
+            - name: Upload Playwright Report
+              if: always()
+              uses: ./.github/actions/playwright-report
+              with:
+                  test-step-outcome: ${{ steps.regression.outcome }}
+
+    merge-report:
+        name: Merge Report
+        if: always()
+        needs: [setup-and-smoke-test, sanity-test, api-test, regression-test]
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: lts/*
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Download blob reports from GitHub Actions Artifacts
+              uses: actions/download-artifact@v4
+              with:
+                  path: all-blob-reports
+                  pattern: blob-report-*
+                  merge-multiple: true
+
+            - name: Merge into HTML Report
+              run: npx playwright merge-reports --reporter html ./all-blob-reports
+
+            - name: Upload HTML report
+              uses: actions/upload-artifact@v4
+              with:
+                  name: Merged HTML Reports
+                  path: playwright-report
+                  retention-days: 3
+
+    build-report:
+        name: Build Report
+        if: always()
+        needs: merge-report
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Download Merged HTML Reports
+              uses: actions/download-artifact@v4
+              with:
+                  name: Merged HTML Reports
+                  path: ./_site
+
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: ./_site
+
+    depoloy-report:
+        name: Deploy Report
+        if: always()
+        needs: build-report
+        environment:
+            name: github-pages
+            url: 'https://idavidov13.github.io/Playwright-Framework/'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4

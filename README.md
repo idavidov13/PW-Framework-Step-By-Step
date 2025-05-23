@@ -14,6 +14,7 @@ This repository offers a comprehensive, step-by-step guide to building an automa
 -   [Implement UI Tests](#implement-ui-tests)
 -   [Implement API Fixtures](#implement-api-fixtures)
 -   [Implement API Tests](#implement-api-tests)
+-   [Implement CI/CD Pipeline in GitHub Actions](#implement-ci-cd-pipeline-in-github-actions)
 
 ## Introduction
 
@@ -441,3 +442,43 @@ Create `invalidCredentials.json` in `test-data` folder in the root directory of 
 4. **Create 'article.spec.ts' file in the tests/api folder of the project**
 
 5. **Implement Tear Down process in `article.spec.ts` file in the tests/clientSite folder of the project**
+
+## Implement CI/CD Pipeline in GitHub Actions
+
+### Workflow Details
+
+-   **Environment Variables**: All workflows use environment variables defined in GitHub Secrets.
+-   **Test Stages**: The Pipeline includes stages for setup and smoke test, and testing stage (sanity tests, API tests, and regression tests)
+-   **Reports**: Test reports are uploaded as artifacts for review.
+-   **Merge Report (Optional)**: All uploaded reports are downloaded, merged in one, and merged report is uploaded as artifact.
+-   **Build Report (Optional)**: Merged report is downloaded and github-pages are genereted and uploaded as artifact.
+-   **Deploy Report (Optional)**: Uploaded github-pages is deployed in GitHub Pages for the workflow.
+    -   **Note:** Due to GitHub consideration of url to consist secrets, the workaround was to hardcode the url for the GitHub Pages, so it appears just below the job name and it is easily accesible for everyone.
+    -   **TO DO:** If the job is implemented, the URL should be updated.
+
+1. **Add failingTest.spec.ts file in the tests/clientSite folder of the project**
+
+2. **Create `.github/actions` folder in the root directory of the project and add `playwright-report/action.yml` file to it and ``playwright-setup/action.yml` file to it**
+
+3. **Create `.github/workflows` folder in the root directory of the project**
+
+4. **Create 'playwright-custom-runner.yml' file in the .github/workflows folder of the project**
+
+5. **Set up GitHub Actions Secrets**
+
+- Navigate to repository setting in GitHub,
+- Go to Secrets and variables,
+- Go to Actions,
+- Click on New repository secret,
+- Add the following secrets:
+    - URL
+    - API_URL
+    - USER_NAME
+    - EMAIL
+    - PASSWORD
+
+6. **Enable GitHub Pages**
+
+- Navigate to repository setting in GitHub,
+- Go to Pages,
+- Select Build and eployment source `GitHub Actions`

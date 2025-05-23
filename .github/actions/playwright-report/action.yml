@@ -1,0 +1,28 @@
+name: 'Playwright Report'
+description: 'Upload Playwright Report'
+inputs:
+    test-step-outcome:
+        description: 'Outcome of the test step (success or failure)'
+        required: true
+    blob-report-upload:
+        description: 'Wheather to always upload blob report as artifact or only on failure'
+        required: false
+        default: 'false'
+    blob-report-retention-days:
+        description: 'Retention days for blob report'
+        required: false
+        default: '3'
+    blob-report-path:
+        description: 'Path for blob report'
+        required: false
+        default: 'blob-report'
+runs:
+    using: 'composite'
+    steps:
+        - name: Upload BLOB Report
+          uses: actions/upload-artifact@v4
+          if: ${{ inputs.blob-report-upload == 'true' || inputs.test-step-outcome == 'failure' }}
+          with:
+              name: blob-report-${{ github.job }}
+              path: ${{ inputs.blob-report-path }}
+              retention-days: ${{ inputs.blob-report-retention-days }}
