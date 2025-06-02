@@ -38,7 +38,7 @@ test.describe('Verify Publish/Edit/Delete an Article', () => {
                 articleId = responseBody.article.slug;
                 console.log('articleId', articleId);
             });
-      
+
             await test.step('Verify Edit an Article', async () => {
                 await articlePage.navigateToEditArticlePage();
 

@@ -7,33 +7,62 @@ import { Page, Locator, expect } from '@playwright/test';
  * @typedef {NavPage}
  */
 export class NavPage {
-
     constructor(private page: Page) {}
 
-    get navBar()  {return this.page.getByRole('navigation');}
-    get conduitIcon()  {return this.navBar.getByRole('link', { name: 'conduit' });}
-    get homePageLink()  {return this.page.getByRole('link', {
+    get navBar() {
+        return this.page.getByRole('navigation');
+    }
+    get conduitIcon() {
+        return this.navBar.getByRole('link', { name: 'conduit' });
+    }
+    get homePageLink() {
+        return this.page.getByRole('link', {
             name: 'Home',
             exact: true,
-        });}
-    get newArticleButton()  {return this.page.getByRole('link', {
+        });
+    }
+    get newArticleButton() {
+        return this.page.getByRole('link', {
             name: 'New Article',
-        });}
-    get settingsButton()  {return this.page.getByRole('link', { name: 'Settings' });}
-    get settingsPageTitle()  {return this.page.getByRole('heading', {
+        });
+    }
+    get settingsButton() {
+        return this.page.getByRole('link', { name: 'Settings' });
+    }
+    get settingsPageTitle() {
+        return this.page.getByRole('heading', {
             name: 'Your Settings',
-        });}
-    get logoutButton()  {return this.page.getByRole('button', {
+        });
+    }
+    get logoutButton() {
+        return this.page.getByRole('button', {
             name: 'Or click here to logout.',
-        });}
-    get signInNavigationLink()  {return this.page.getByRole('link', { name: 'Sign in' });}
-    get signInPageTitle()  {return this.page.getByRole('heading', { name: 'Sign in' });}
-    get emailInput()  {return this.page.getByRole('textbox', { name: 'Email' });}
-    get passwordInput()  {return this.page.getByRole('textbox', { name: 'Password' });}
-    get signInButton()  {return this.page.getByRole('button', { name: 'Sign in' });}
-    get signUpNavigationLink()  {return this.page.getByRole('link', { name: 'Sign up' });}
-    get signUpPageTitle()  {return this.page.getByRole('heading', { name: 'Sign up' });}
-    get homePageHeading()  {return this.page.getByRole('heading', { name: 'conduit' });}
+        });
+    }
+    get signInNavigationLink() {
+        return this.page.getByRole('link', { name: 'Sign in' });
+    }
+    get signInPageTitle() {
+        return this.page.getByRole('heading', { name: 'Sign in' });
+    }
+    get emailInput() {
+        return this.page.getByRole('textbox', { name: 'Email' });
+    }
+    get passwordInput() {
+        return this.page.getByRole('textbox', { name: 'Password' });
+    }
+    get signInButton() {
+        return this.page.getByRole('button', { name: 'Sign in' });
+    }
+    get signUpNavigationLink() {
+        return this.page.getByRole('link', { name: 'Sign up' });
+    }
+    get signUpPageTitle() {
+        return this.page.getByRole('heading', { name: 'Sign up' });
+    }
+    get homePageHeading() {
+        return this.page.getByRole('heading', { name: 'conduit' });
+    }
 
     /**
      * Navigates to the Home page using the Home link.

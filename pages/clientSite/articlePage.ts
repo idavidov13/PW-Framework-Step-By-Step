@@ -7,31 +7,44 @@ import { Page, Locator, expect } from '@playwright/test';
  * @typedef {ArticlePage}
  */
 export class ArticlePage {
-
     constructor(private page: Page) {}
 
-    get articleTitleInput() {return this.page.getByRole('textbox', {
-        name: 'Article Title',
-    });}
-    get articleDescriptionInput() {return this.page.getByRole('textbox', {
-        name: "What's this article about?",
-    });}
-    get articleBodyInput() {return this.page.getByRole('textbox', {
-        name: 'Write your article (in',
-    });}
-    get articleTagInput() {return this.page.getByRole('textbox', {
-        name: 'Enter tags',
-    });}
-    get publishArticleButton() {return this.page.getByRole('button', {
-        name: 'Publish Article',
-    });}
-    get publishErrorMessage() {return this.page.getByText("title can't be blank");}
-    get editArticleButton() {return this.page
-        .getByRole('link', { name: ' Edit Article' })
-        .first();}
-    get deleteArticleButton() {return this.page
-        .getByRole('button', { name: ' Delete Article' })
-        .first();}
+    get articleTitleInput() {
+        return this.page.getByRole('textbox', {
+            name: 'Article Title',
+        });
+    }
+    get articleDescriptionInput() {
+        return this.page.getByRole('textbox', {
+            name: "What's this article about?",
+        });
+    }
+    get articleBodyInput() {
+        return this.page.getByRole('textbox', {
+            name: 'Write your article (in',
+        });
+    }
+    get articleTagInput() {
+        return this.page.getByRole('textbox', {
+            name: 'Enter tags',
+        });
+    }
+    get publishArticleButton() {
+        return this.page.getByRole('button', {
+            name: 'Publish Article',
+        });
+    }
+    get publishErrorMessage() {
+        return this.page.getByText("title can't be blank");
+    }
+    get editArticleButton() {
+        return this.page.getByRole('link', { name: ' Edit Article' }).first();
+    }
+    get deleteArticleButton() {
+        return this.page
+            .getByRole('button', { name: ' Delete Article' })
+            .first();
+    }
 
     /**
      * Navigates to the edit article page by clicking the edit button.

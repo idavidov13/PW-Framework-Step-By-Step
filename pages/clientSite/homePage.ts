@@ -7,16 +7,25 @@ import { Page, Locator, expect } from '@playwright/test';
  * @typedef {HomePage}
  */
 export class HomePage {
-
     constructor(private page: Page) {}
 
-    get homeBanner() {return this.page.getByRole('heading', { name: 'conduit' });}
-    get yourFeedBtn() {return this.page.getByText('Your Feed');}
-    get globalFeedBtn() {return this.page.getByText('Global Feed');}
-    get bondarAcademyLink() {return this.page.getByRole('link', {
-        name: 'www.bondaracademy.com',
-    });}
-    get noArticlesMessage() {return this.page.getByText('No articles are here... yet.');}
+    get homeBanner() {
+        return this.page.getByRole('heading', { name: 'conduit' });
+    }
+    get yourFeedBtn() {
+        return this.page.getByText('Your Feed');
+    }
+    get globalFeedBtn() {
+        return this.page.getByText('Global Feed');
+    }
+    get bondarAcademyLink() {
+        return this.page.getByRole('link', {
+            name: 'www.bondaracademy.com',
+        });
+    }
+    get noArticlesMessage() {
+        return this.page.getByText('No articles are here... yet.');
+    }
 
     /**
      * Navigates to the home page as Guest.
