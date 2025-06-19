@@ -1,31 +1,47 @@
 {
-  "name": "pw-framework-step-by-step",
-  "version": "1.0.0",
-  "description": "This repository offers a comprehensive, step-by-step guide to building an automation testing framework using Playwright. Designed with junior Automation QA engineers in mind, it demystifies the process by breaking down the development of a framework from the ground up. Each commit is thoughtfully crafted to explain not just 'how' but 'why' each part of the framework is implemented, providing a solid foundation for understanding and extending it. Whether you're starting your journey in automation testing or looking to strengthen your understanding of testing frameworks, this repository serves as a practical, educational tool, guiding you through the nuances of creating a robust, scalable testing framework with Playwright.",
-  "main": "index.js",
-  "scripts": {
-    "test": "npx playwright test --project=chromium",
-    "ci": "npx playwright test --project=chromium --workers=1",
-    "flaky": "npx playwright test --project=chromium --repeat-each=20",
-    "debug": "npx playwright test --project=chromium --debug",
-    "ui": "npx playwright test --project=chromium --ui",
-    "smoke": "npx playwright test --grep @Smoke --project=chromium",
-    "sanity": "npx playwright test --grep @Sanity --project=chromium",
-    "api": "npx playwright test --grep @Api --project=chromium",
-    "regression": "npx playwright test --grep @Regression --project=chromium",
-    "fullTest": "npx playwright test"
-  },
-  "keywords": [],
-  "author": "Ivan Davidov",
-  "license": "ISC",
-  "devDependencies": {
-    "@faker-js/faker": "^9.8.0",
-    "@playwright/test": "^1.52.0",
-    "@types/dotenv": "^6.1.1",
-    "@types/node": "^22.15.21"
-  },
-  "dependencies": {
-    "dotenv": "^16.5.0",
-    "zod": "^3.25.23"
-  }
+    "name": "pw-framework-step-by-step",
+    "version": "1.0.0",
+    "description": "This repository offers a comprehensive, step-by-step guide to building an automation testing framework using Playwright. Designed with junior Automation QA engineers in mind, it demystifies the process by breaking down the development of a framework from the ground up. Each commit is thoughtfully crafted to explain not just 'how' but 'why' each part of the framework is implemented, providing a solid foundation for understanding and extending it. Whether you're starting your journey in automation testing or looking to strengthen your understanding of testing frameworks, this repository serves as a practical, educational tool, guiding you through the nuances of creating a robust, scalable testing framework with Playwright.",
+    "main": "index.js",
+    "scripts": {
+        "test": "npx playwright test --project=chromium",
+        "ci": "npx playwright test --project=chromium --workers=1",
+        "flaky": "npx playwright test --project=chromium --repeat-each=20",
+        "debug": "npx playwright test --project=chromium --debug",
+        "ui": "npx playwright test --project=chromium --ui",
+        "smoke": "npx playwright test --grep @Smoke --project=chromium",
+        "sanity": "npx playwright test --grep @Sanity --project=chromium",
+        "api": "npx playwright test --grep @Api --project=chromium",
+        "regression": "npx playwright test --grep @Regression --project=chromium",
+        "fullTest": "npx playwright test"
+    },
+    "keywords": [],
+    "author": "Ivan Davidov",
+    "license": "ISC",
+    "devDependencies": {
+        "@faker-js/faker": "^9.8.0",
+        "@playwright/test": "^1.52.0",
+        "@types/dotenv": "^6.1.1",
+        "@types/node": "^22.15.21",
+        "@typescript-eslint/eslint-plugin": "^8.34.1",
+        "@typescript-eslint/parser": "^8.34.1",
+        "eslint": "^9.29.0",
+        "eslint-config-prettier": "^10.1.5",
+        "eslint-define-config": "^2.1.0",
+        "eslint-plugin-playwright": "^2.2.0",
+        "eslint-plugin-prettier": "^5.5.0",
+        "husky": "^9.1.7",
+        "jiti": "^2.4.2",
+        "lint-staged": "^16.1.2"
+    },
+    "dependencies": {
+        "dotenv": "^16.5.0",
+        "zod": "^3.25.23"
+    },
+    "lint-staged": {
+        "*.{ts,tsx,js,jsx}": [
+            "npx eslint --fix",
+            "npx prettier --write"
+        ]
+    }
 }
