@@ -37,10 +37,10 @@ test.describe('Verify Publish/Edit/Delete an Article', () => {
                 const responseBody = await response[1].json();
                 articleId = responseBody.article.slug;
             });
-            
+
             await test.step('Verify Edit an Article', async () => {
                 await articlePage.navigateToEditArticlePage();
-
+console.log('test');
                 await expect(articlePage.articleTitleInput).toHaveValue(
                     randomArticleTitle
                 );
